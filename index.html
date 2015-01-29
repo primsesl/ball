@@ -23,34 +23,35 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Brand</a>
+			<a class="navbar-brand" href="#">Учет баллов</a>
 		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
-			<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal_add">Дабавить</button>
-			<button id="ww2" type="button" class="btn btn-default navbar-btn">Sign in1</button>
-		</div>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+		<ul class="nav navbar-nav">
+			<li><a href="#">Настройки</a></li>
+		</ul>
+	</div>
 	</div>
 	</nav>	
     <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="page-header">
-      </div>
-      <div class="container theme-showcase" role="main">
-      <!-- Table -->
-	<table id="scores" class="table">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Описание</th>
-				<th>Баллы</th>
-				<th>кнопки</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-      </div>
+    <div class="page-header">
+    </div>
+    <div class="container theme-showcase" role="main">
+		<div>
+			<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal_add">Дабавить</button>
+			  <!-- Table -->
+			<table id="scores" class="table">
+				<thead>
+					<tr>
+						<th>Описание</th>
+						<th width="30px">Баллы</th>
+						<th width="50px">Кнопки</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
-	</div>	
+	</div>
 <div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -77,37 +78,60 @@
 </div>	
 	<script type="text/javascript">
 	$(function() {
-			
-			$( "#add" )
-				.click(function() {
-					if(localStorage["ball"]){
-						item = JSON.parse(localStorage["ball"]);
-					}else{
-						item = [];
-					}
-					var val1 = $("#desc").val();
-					var val2 = $("#ball").val();
-					var marker = { id: Date.now(),  ball: val2, desc: val1 };
-					item.push(marker);
-					localStorage["ball"] = JSON.stringify(item);
-					$table = $("#scores tbody");
-					$table.html('');
-					item = JSON.parse(localStorage["ball"])
-					  for (var r=0; r<item.length; r++) {
-						$table.append(
-							'<tr data-id="'+item[r].id+'"><th scope="row">'+r+'</th>'+
-								'<td>'+ item[r].desc+'</td>'+
-								'<td>'+ item[r].ball+'</td>'+
-								'<td><button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button></td>'+
-							'</tr>');
-						console.log("index"+ r + " - "+ item[r].desc);
-					  }
-						deleteClickOn();
-					$('#Modal_add').modal('hide');
-					$("#desc").val('');
-					$("#ball").val('');
+		$( "#add" )
+			.click(function() {
+				if(localStorage["ball"]){
+					item = JSON.parse(localStorage["ball"]);
+				}else{
+					item = [];
+				}
+				var val1 = $("#desc").val();
+				var val2 = $("#ball").val();
+				var marker = { id: Date.now(),  ball: val2, desc: val1 };
+				item.push(marker);
+				localStorage["ball"] = JSON.stringify(item);
+				$table = $("#scores tbody");
+				$table.html('');
+				item = JSON.parse(localStorage["ball"])
+				  for (var r=0; r<item.length; r++) {
+					$table.append(
+						'<tr data-id="'+item[r].id+'">'+
+							'<td>'+ item[r].desc+'</td>'+
+							'<td>'+ item[r].ball+'</td>'+
+							'<td>'+
+							'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
+							'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
+						'</tr>');
+					console.log("index"+ r + " - "+ item[r].desc);
+				  }
+					deleteClickOn();
+				$('#Modal_add').modal('hide');
+				$("#desc").val('');
+				$("#ball").val('');
 
-				});
+			});
+    function table() {
+		if(localStorage["ball"]){
+			item = JSON.parse(localStorage["ball"])
+			$table = $("#scores tbody");
+			$table.html('');
+			  for (var r=0; r<item.length; r++) {
+				$table.append(
+					'<tr data-id="'+item[r].id+'">'+
+						'<td>'+ item[r].desc+'</td>'+
+						'<td>'+ item[r].ball+'</td>'+
+						'<td>'+
+						'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
+						'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
+					'</tr>');
+				console.log("index"+ r + " - "+ item[r].desc);
+			  }
+				deleteClickOn();
+			
+		}else{
+		}
+    }
+				
     function deleteClickOn() {
 			$( "#scores tbody tr button")
 				.click(function() {
@@ -130,7 +154,7 @@
 			$( "#ww2" )
 				.click(function() {
 				});
-
+table();
 	function createCalendar(id, year, month, arr) {
 	  var elem = document.getElementById(id);
 
