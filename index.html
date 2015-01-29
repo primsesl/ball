@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>График</title>
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery.ui.datepicker-ru.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<link href="js/jquery-ui.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<nav class="navbar  navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Brand</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+			<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal_add">Дабавить</button>
+			<button id="ww2" type="button" class="btn btn-default navbar-btn">Sign in1</button>
+		</div>
+	</div>
+	</nav>	
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="page-header">
+      </div>
+      <div class="container theme-showcase" role="main">
+      <!-- Table -->
+	<table id="scores" class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Описание</th>
+				<th>Баллы</th>
+				<th>кнопки</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+      </div>
+		</div>
+	</div>	
+<div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
+      </div>
+      <div class="modal-body">
+		<div class="form-group">
+		<label for="desc">Описание</label>
+		<input type="text" class="form-control" id="desc" placeholder="Описание">
+		</div>
+		<div class="form-group">
+		<label for="ball">Баллы</label>
+		<input type="number" class="form-control" id="ball" placeholder="Баллы">
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button id="add" type="button" class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>	
+	<script type="text/javascript">
+	$(function() {
+			
+			$( "#add" )
+				.click(function() {
+					if(localStorage["ball"]){
+						item = JSON.parse(localStorage["ball"]);
+					}else{
+						item = [];
+					}
+					var val1 = $("#desc").val();
+					var val2 = $("#ball").val();
+					var marker = { id: Date.now(),  ball: val2, desc: val1 };
+					item.push(marker);
+					localStorage["ball"] = JSON.stringify(item);
+					$table = $("#scores tbody");
+					$table.html('');
+					item = JSON.parse(localStorage["ball"])
+					  for (var r=0; r<item.length; r++) {
+						$table.append(
+							'<tr data-id="'+item[r].id+'"><th scope="row">'+r+'</th>'+
+								'<td>'+ item[r].desc+'</td>'+
+								'<td>'+ item[r].ball+'</td>'+
+								'<td><button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button></td>'+
+							'</tr>');
+						console.log("index"+ r + " - "+ item[r].desc);
+					  }
+						deleteClickOn();
+					$('#Modal_add').modal('hide');
+					$("#desc").val('');
+					$("#ball").val('');
+
+				});
+    function deleteClickOn() {
+			$( "#scores tbody tr button")
+				.click(function() {
+            var $thisTr = $(this).parent().parent(),
+                timeID = $thisTr.data("id");
+				//alert(timeID);
+            deleteItem(timeID) && $thisTr.fadeOut()
+        })
+    }
+				
+    function deleteItem(timeID) {
+        var clbObj = $.parseJSON(localStorage.ball),
+            newObj = {},
+            newVal = {};
+        return newObj = [], $.each(clbObj, function(ind, val) {
+            val.id != timeID && (newVal = {}, newVal.id = val.id, newVal.desc = val.desc, newVal.ball = val.ball, newObj.push(newVal))
+        }), localStorage.ball = JSON.stringify(newObj), !0
+    }
+				
+			$( "#ww2" )
+				.click(function() {
+				});
+
+	function createCalendar(id, year, month, arr) {
+	  var elem = document.getElementById(id);
+
+	  var mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
+	  var d = new Date(year, mon);
+
+	  var table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+
+	  // заполнить первый ряд от понедельника
+	  // и до дня, с которого начинается месяц
+	  // * * * | 1  2  3  4
+	  for (var i=0; i<getDay(d); i++) {
+		table += '<td></td>';
+	  }
+	var klass;
+	  // ячейки календаря с датами
+	  while(d.getMonth() == mon) {
+		var mmmm = mon+1;
+		var ggg = year+"-"+mmmm+"-"+d.getDate();
+		if (inArray(arr, ggg)){
+			table += '<td class="work">'+d.getDate()+'</td>';
+		}else{
+			table += '<td class="rest">'+d.getDate()+'</td>';
+		}
+
+
+		if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
+		  table += '</tr><tr>';
+		}
+
+		d.setDate(d.getDate()+1);
+	  }
+
+	  // добить таблицу пустыми ячейками, если нужно
+	  if (getDay(d) != 0) {
+		for (var i=getDay(d); i<7; i++) {
+		  table += '<td></td>';
+		}
+	  }
+
+	  // закрыть таблицу
+	  table += '</tr></table>';
+
+	  // только одно присваивание innerHTML
+	  elem.innerHTML = table;
+	}
+
+	function getDay(date) { // получить номер дня недели, от 0(пн) до 6(вс)
+  var day = date.getDay();
+  if (day == 0) day = 7;
+  return day - 1;
+}
+
+	Array.prototype.uniq = function(){
+	  return this.filter(
+		function(a){
+			return !this[a] ? this[a] = true : false;
+		},
+		{}
+	  );
+	}	
+	// Функция аналогичная php функции inArray
+	inArray = Array.prototype.indexOf ?
+		function (arr, val) {
+			return arr.indexOf(val) != -1
+		}:
+		function (arr, val) {
+			var i = arr.length
+			while (i--) {
+				if (arr[i] === val) return true
+			}
+			return false
+		}
+	});
+	</script>
+</body>
+</html>
