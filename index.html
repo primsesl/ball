@@ -25,8 +25,8 @@
 			</button>
 			<a class="navbar-brand" href="#">Учет баллов</a>
 		</div>
-	<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-3">
-		<ul class="nav">
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+		<ul class="nav navbar-nav">
 			<li><a href="#">Настройки</a></li>
 		</ul>
 	</div>
@@ -37,59 +37,6 @@
     </div>
     <div class="container theme-showcase" role="main">
 		<div>
-			<button id="add_work" type="button" class="btn btn-primary">Добавить</button>
-			<table id="work" class="table">
-				<thead>
-					<tr>
-						<th width="50px">Дата</th>
-						<th width="50px">Л.С</th>
-						<th>Вид работ</th>
-						<th width="30px">Балы</th>
-						<th width="50px">Кнопки</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<div class="modal fade" id="Modal_add_work" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close add_work_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
-				  </div>
-				  <div class="modal-body">
-					<div class="form-group col-xs-6">
-						<label for="work_date">Дата</label>
-						<input type="text" class="form-control" id="work_date" placeholder="Описание">
-					</div>
-					<div class="form-group col-xs-6">
-					<label for="work_ls">Л.С</label>
-					<input type="number" class="form-control" id="work_ls" placeholder="Л.С">
-					</div>
-					<div class="form-group">
-					<label for="work_vid">Вид работ</label>
-					<div id="work_vid">
-					asdfgafa
-					</div>
-				  </div>
-				  <div class="modal-footer">
-					<button id="add_save_work" type="button" class="btn btn-primary">Сохранить</button>
-					<button id="" type="button" class="btn btn-default add_work_close">Закрыть</button>
-				  </div>
-				</div>
-			  </div>
-			</div>
-		</div>
-	</div>
-<div class="modal fade" id="Modal_ball" tabindex="-1" role="dialog" aria-labelledby="ballModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="editModalLabel">Редактирование вид работ</h4>
-      </div>
-      <div class="modal-body">
 			<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal_add">Дабавить</button>
 			  <!-- Table -->
 			<table id="scores" class="table">
@@ -103,57 +50,27 @@
 				<tbody>
 				</tbody>
 			</table>
-			<div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close add_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
-				  </div>
-				  <div class="modal-body">
-					<div class="form-group">
-					<label for="desc">Описание</label>
-					<input type="text" class="form-control" id="desc" placeholder="Описание">
-					</div>
-					<div class="form-group">
-					<label for="ball">Баллы</label>
-					<input type="number" class="form-control" id="ball" placeholder="Баллы">
-					</div>
-				  </div>
-				  <div class="modal-footer">
-					<button id="add" type="button" class="btn btn-primary">Сохранить</button>
-					<button id="" type="button" class="btn btn-default add_close">Закрыть</button>
-				  </div>
-				</div>
-			  </div>
-			</div>
-			<div class="modal fade" id="Modal_edit" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close edit_ball_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="editModalLabel">Редактирование вид работ</h4>
-				  </div>
-				  <div class="modal-body">
-				  <div id="edit_id"></div>
-					<div class="form-group">
-					<label for="edit_desc">Описание</label>
-					<input type="text" class="form-control" id="edit_desc" placeholder="Описание">
-					</div>
-					<div class="form-group">
-					<label for="edit_ball">Баллы</label>
-					<input type="number" class="form-control" id="edit_ball" placeholder="Баллы">
-					</div>
-				  </div>
-				  <div class="modal-footer">
-					<button id="edit_save_ball" type="button" class="btn btn-primary">Сохранить</button>
-					<button type="button" class="edit_ball_close btn btn-default">Закрыть</button>
-				  </div>
-				</div>
-			  </div>
-			</div>	
+		</div>
+	</div>
+<div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
+      </div>
+      <div class="modal-body">
+		<div class="form-group">
+		<label for="desc">Описание</label>
+		<input type="text" class="form-control" id="desc" placeholder="Описание">
+		</div>
+		<div class="form-group">
+		<label for="ball">Баллы</label>
+		<input type="number" class="form-control" id="ball" placeholder="Баллы">
+		</div>
       </div>
       <div class="modal-footer">
+        <button id="add" type="button" class="btn btn-primary">Сохранить</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
       </div>
     </div>
@@ -161,162 +78,38 @@
 </div>	
 	<script type="text/javascript">
 	$(function() {
-	
-//База данных
-	db_name = "events_cal";
-	db_version = "1.0";
-	db_description = "События";
-		
-	//var spec = []
-	var speckyboy = {}
-		speckyboy.init = {}
-		speckyboy.init.db = {}
-		
-	speckyboy.init.open = function(){
-		speckyboy.init.db = openDatabase(db_name,db_version,db_description,1024*1024*5);
-		// название БД, версия, описание, размер
-	}
-	// получение данных из БД
-	speckyboy.init.createTable = function(){
-		 var database = speckyboy.init.db;
-		 database.transaction(function(tx){
-			tx.executeSql("CREATE TABLE IF NOT EXISTS balls (id INTEGER PRIMARY KEY ASC, desc VARCHAR, ball INT)", []);
-			tx.executeSql("CREATE TABLE IF NOT EXISTS work (id INTEGER PRIMARY KEY ASC, date VARCHAR, ls VARCHAR, desc VARCHAR, ball INT)", []);
-		 });
-	}
-	
-	speckyboy.init.addBall = function(desc,ball){
-		var database = speckyboy.init.db;
-		database.transaction(function(tx){
-			 tx.executeSql("INSERT INTO balls (desc, ball) VALUES (?,?)", [desc,ball],
-			 speckyboy.init.getBall());
-		});
-	}
-	speckyboy.init.addBall = function(desc,ball){
-		var database = speckyboy.init.db;
-		database.transaction(function(tx){
-			 tx.executeSql("INSERT INTO balls (desc, ball) VALUES (?,?)", [desc,ball],
-			 speckyboy.init.getBall());
-		});
-	}
-	speckyboy.init.getBall = function(){
-		var database = speckyboy.init.db;
-			$table = $("#scores tbody");
-			$table.html('');
-			database.transaction(function(tx){
-				tx.executeSql("SELECT * FROM balls ORDER BY desc ASC", [], function(tx,result){
-					for (var i=0; i < result.rows.length; i++) {
-						todo_id = result.rows.item(i).id;
-						todo_desc = result.rows.item(i).desc;
-						todo_ball = result.rows.item(i).ball;
-						$table.append(
-							'<tr id="row_'+todo_id+'" data-id="'+todo_id+'">'+
-								'<td id="td_desc_'+todo_id+'">'+ todo_desc+'</td>'+
-								'<td>'+ todo_ball+'</td>'+
-								'<td>'+
-								'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
-								'<button type="button" class="edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
-							'</tr>');
-
-					}
-				});
-			});
-		setTimeout(function(){
-			deleteClickOn();
-			editClickOn();
-		}, 200);
-	}
-	speckyboy.init.getBall_for_work = function(){
-		var database = speckyboy.init.db;
-			$table = $("#work_vid");
-			$table.html('<ul class="list-group"></ul>');
-			database.transaction(function(tx){
-				tx.executeSql("SELECT * FROM balls ORDER BY desc ASC", [], function(tx,result){
-					for (var i=0; i < result.rows.length; i++) {
-						todo_id = result.rows.item(i).id;
-						todo_desc = result.rows.item(i).desc;
-						todo_ball = result.rows.item(i).ball;
-						$(".list-group").append(
-								'<li class="list-group-item">'+ todo_desc+'</td>'+
-								'<span class="badge">'+todo_ball+'</span>'+
-								todo_desc+
-								'</li>');
-
-					}
-				});
-			});
-		setTimeout(function(){
-			deleteClickOn();
-			editClickOn();
-		}, 200);
-	}
-	speckyboy.init.editRowBall = function(id){
-		var database = speckyboy.init.db;
-		database.transaction(function(tx){
-			tx.executeSql("SELECT * FROM balls WHERE id=?", [id], function(tx,result){
-				for (var i=0; i < result.rows.length; i++) {
-					todo_id = result.rows.item(i).id;
-					todo_desc = result.rows.item(i).desc;
-					todo_ball = result.rows.item(i).ball;
-						$('#edit_desc').val(todo_desc);
-						$('#edit_ball').val(todo_ball);
-						$('#edit_id').html(todo_id);
+		$( "#add" )
+			.click(function() {
+				if(localStorage["ball"]){
+					item = JSON.parse(localStorage["ball"]);
+				}else{
+					item = [];
 				}
+				var val1 = $("#desc").val();
+				var val2 = $("#ball").val();
+				var marker = { id: Date.now(),  ball: val2, desc: val1 };
+				item.push(marker);
+				localStorage["ball"] = JSON.stringify(item);
+				$table = $("#scores tbody");
+				$table.html('');
+				item = JSON.parse(localStorage["ball"])
+				  for (var r=0; r<item.length; r++) {
+					$table.append(
+						'<tr data-id="'+item[r].id+'">'+
+							'<td>'+ item[r].desc+'</td>'+
+							'<td>'+ item[r].ball+'</td>'+
+							'<td>'+
+							'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
+							'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
+						'</tr>');
+					console.log("index"+ r + " - "+ item[r].desc);
+				  }
+					deleteClickOn();
+				$('#Modal_add').modal('hide');
+				$("#desc").val('');
+				$("#ball").val('');
+
 			});
-		});
-	}
-	speckyboy.init.editSaveBall = function(id, desc, ball){
-		//alert(id);
-		var database = speckyboy.init.db;
-		database.transaction(function(tx){
-			tx.executeSql('UPDATE balls SET desc = ?, ball = ? WHERE id = ?', [desc, ball, id]);
-		});
-	}
-	speckyboy.init.deleteRow = function(id){
-		var database = speckyboy.init.db;
-		database.transaction(function(tx){
-			tx.executeSql("DELETE FROM balls WHERE id=?",[id]);
-		});
-	}
-
-	
-//Конец База данных
-	$('.navbar-collapse').click('li', function() {
-		$('.navbar-collapse').collapse('hide');
-		$('#Modal_ball').modal('show'); 
-	});
-	$( ".add_close" ).click(function() {
-		$('#Modal_add').modal('hide'); 
-	});
-	$( "#edit_save_ball" ).click(function() {
-		id = $('#edit_id').html();
-		desc = $('#edit_desc').val();
-		ball = $('#edit_ball').val();
-		speckyboy.init.editSaveBall(id, desc, ball);
-		$("#td_desc_"+id).html(desc);
-		$('#Modal_edit').modal('hide'); 
-	});
-	$(".edit_ball_close").click(function() {
-		$('#Modal_edit').modal('hide'); 
-	});
-	$("#add").click(function() {
-		var val1 = $("#desc").val();
-		var val2 = $("#ball").val();
-		speckyboy.init.addBall(val1,val2);
-		$('#Modal_add').modal('hide');
-		$("#desc").val('');
-		$("#ball").val('');
-	});
-
-	$( ".add_work_close" ).click(function() {
-		$('#Modal_add_work').modal('hide');
-	});
-	$( "#add_work" ).click(function() {
-		speckyboy.init.getBall_for_work();
-		$('#Modal_add_work').modal('show');
-	});
-
-
     function table() {
 		if(localStorage["ball"]){
 			item = JSON.parse(localStorage["ball"])
@@ -329,38 +122,26 @@
 						'<td>'+ item[r].ball+'</td>'+
 						'<td>'+
 						'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
-						'<button type="button" class="edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
+						'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
 					'</tr>');
 				console.log("index"+ r + " - "+ item[r].desc);
 			  }
 				deleteClickOn();
-				editClickOn();
 			
 		}else{
 		}
     }
+				
     function deleteClickOn() {
-			$( ".del")
+			$( "#scores tbody tr button")
 				.click(function() {
             var $thisTr = $(this).parent().parent(),
                 timeID = $thisTr.data("id");
-				$tttt = $("#row_"+timeID);
 				//alert(timeID);
-            speckyboy.init.deleteRow(timeID) 
-			$tttt.fadeOut()
+            deleteItem(timeID) && $thisTr.fadeOut()
         })
     }
-    function editClickOn() {
-			$(".edit")
-				.click(function() {
-					var $thisTr = $(this).parent().parent(),
-						timeID = $thisTr.data("id");
-						//alert(timeID);
-						speckyboy.init.editRowBall(timeID);
-						$('#Modal_edit').modal('show');
-
-        });
-    }
+				
     function deleteItem(timeID) {
         var clbObj = $.parseJSON(localStorage.ball),
             newObj = {},
@@ -369,6 +150,63 @@
             val.id != timeID && (newVal = {}, newVal.id = val.id, newVal.desc = val.desc, newVal.ball = val.ball, newObj.push(newVal))
         }), localStorage.ball = JSON.stringify(newObj), !0
     }
+				
+			$( "#ww2" )
+				.click(function() {
+				});
+table();
+	function createCalendar(id, year, month, arr) {
+	  var elem = document.getElementById(id);
+
+	  var mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
+	  var d = new Date(year, mon);
+
+	  var table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+
+	  // заполнить первый ряд от понедельника
+	  // и до дня, с которого начинается месяц
+	  // * * * | 1  2  3  4
+	  for (var i=0; i<getDay(d); i++) {
+		table += '<td></td>';
+	  }
+	var klass;
+	  // ячейки календаря с датами
+	  while(d.getMonth() == mon) {
+		var mmmm = mon+1;
+		var ggg = year+"-"+mmmm+"-"+d.getDate();
+		if (inArray(arr, ggg)){
+			table += '<td class="work">'+d.getDate()+'</td>';
+		}else{
+			table += '<td class="rest">'+d.getDate()+'</td>';
+		}
+
+
+		if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
+		  table += '</tr><tr>';
+		}
+
+		d.setDate(d.getDate()+1);
+	  }
+
+	  // добить таблицу пустыми ячейками, если нужно
+	  if (getDay(d) != 0) {
+		for (var i=getDay(d); i<7; i++) {
+		  table += '<td></td>';
+		}
+	  }
+
+	  // закрыть таблицу
+	  table += '</tr></table>';
+
+	  // только одно присваивание innerHTML
+	  elem.innerHTML = table;
+	}
+
+	function getDay(date) { // получить номер дня недели, от 0(пн) до 6(вс)
+  var day = date.getDay();
+  if (day == 0) day = 7;
+  return day - 1;
+}
 
 	Array.prototype.uniq = function(){
 	  return this.filter(
@@ -390,9 +228,6 @@
 			}
 			return false
 		}
-	speckyboy.init.open();
-	speckyboy.init.createTable();
-	speckyboy.init.getBall();
 	});
 	</script>
 </body>
