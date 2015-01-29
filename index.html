@@ -61,18 +61,19 @@
 				  <div class="modal-body">
 					<div class="form-group col-xs-6">
 						<label for="work_date">Дата</label>
-						<input type="text" class="form-control" id="work_date" placeholder="Описание">
+						<input type="date" class="form-control" id="work_date" placeholder="Описание">
 					</div>
 					<div class="form-group col-xs-6">
 					<label for="work_ls">Л.С</label>
 					<input type="number" class="form-control" id="work_ls" placeholder="Л.С">
 					</div>
 					<div class="form-group">
-					<label for="work_vid">Вид работ</label>
-					<div id="work_vid">
-					asdfgafa
+						<label for="work_vid">Вид работ</label>
+						<select class="form-control">
+					
+						</select>
 					</div>
-				  </div>
+					<button id="add_save_work" type="button" class="btn btn-primary">Сохранить</button>
 				  <div class="modal-footer">
 					<button id="add_save_work" type="button" class="btn btn-primary">Сохранить</button>
 					<button id="" type="button" class="btn btn-default add_work_close">Закрыть</button>
@@ -192,10 +193,10 @@
 			 speckyboy.init.getBall());
 		});
 	}
-	speckyboy.init.addBall = function(desc,ball){
+	speckyboy.init.addWork = function(date,ls){
 		var database = speckyboy.init.db;
 		database.transaction(function(tx){
-			 tx.executeSql("INSERT INTO balls (desc, ball) VALUES (?,?)", [desc,ball],
+			 tx.executeSql("INSERT INTO work (date, ls) VALUES (?,?)", [date,ls],
 			 speckyboy.init.getBall());
 		});
 	}
@@ -228,19 +229,14 @@
 	}
 	speckyboy.init.getBall_for_work = function(){
 		var database = speckyboy.init.db;
-			$table = $("#work_vid");
-			$table.html('<ul class="list-group"></ul>');
 			database.transaction(function(tx){
 				tx.executeSql("SELECT * FROM balls ORDER BY desc ASC", [], function(tx,result){
 					for (var i=0; i < result.rows.length; i++) {
 						todo_id = result.rows.item(i).id;
 						todo_desc = result.rows.item(i).desc;
 						todo_ball = result.rows.item(i).ball;
-						$(".list-group").append(
-								'<li class="list-group-item">'+ todo_desc+'</td>'+
-								'<span class="badge">'+todo_ball+'</span>'+
-								todo_desc+
-								'</li>');
+						$(".form-control").append(
+								'<option>'+ todo_desc+'</option>');
 
 					}
 				});
@@ -314,6 +310,17 @@
 	$( "#add_work" ).click(function() {
 		speckyboy.init.getBall_for_work();
 		$('#Modal_add_work').modal('show');
+	});
+
+	$( "#add_save_work" ).click(function() {
+		date = $('#work_date').val();
+		desc = $('#work_desc').val();
+		ls = $('#work_ls').val();
+		
+		//ball = $('#edit_ball').val();
+		
+		speckyboy.init.addWork(date, ls);
+		$('#Modal_add_work').modal('hide');
 	});
 
 
