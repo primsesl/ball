@@ -67,15 +67,40 @@
 					<label for="work_ls">Л.С</label>
 					<input type="number" class="form-control" id="work_ls" placeholder="Л.С">
 					</div>
-					<div class="form-group">
-						<label for="work_vid">Вид работ</label>
-						<select class="form-control">
-					
-						</select>
+						<div class="col-xs-3" for="work_vid">Вид работ</div>
+					<div class="row">
+						<div class="form-group col-xs-10">
+							<select id="add_sel" class="form-control">
+						
+							</select>
+						</div>
+						<div class=" col-xs-2">
+							<button id="add_ball_for_ls" type="button" class="btn btn-primary">+</button>
+						</div>
 					</div>
-					<button id="add_save_work1" type="button" class="btn btn-primary">Сохранить</button>
+					<div class="row">
+						<div class="col-xs-12">
+							<table id="scores_for_add" class="table">
+								<thead>
+									<tr>
+										<th>Вид робот</th>
+										<th width="30px">Баллы</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Итого</th>
+										<th id="summ"></th>
+									</tr>
+								</tfoot>
+								<tbody>
+								</tbody>
+								
+							</table>
+						</div>
+					</div>
 				  <div class="modal-footer">
-					<button id="add_save_work" type="button" class="btn btn-primary">Сохранить</button>
+					<button id="add_save_work" type="button" class="btn btn-primary">Сохранить1</button>
 					<button id="" type="button" class="btn btn-default add_work_close">Закрыть</button>
 				  </div>
 				</div>
@@ -166,7 +191,7 @@
 //База данных
 	db_name = "events_cal";
 	db_version = "1.0";
-	db_description = "События";
+	db_description = "подсчет баллов";
 		
 	//var spec = []
 	var speckyboy = {}
@@ -193,10 +218,10 @@
 			 speckyboy.init.getBall());
 		});
 	}
-	speckyboy.init.addWork = function(date,ls){
+	speckyboy.init.addWork = function(date, ls, desc, count){
 		var database = speckyboy.init.db;
 		database.transaction(function(tx){
-			 tx.executeSql("INSERT INTO work (date, ls) VALUES (?,?)", [date,ls],
+			 tx.executeSql("INSERT INTO work (date, ls, desc, ball) VALUES (?,?,?,?)", [date, ls, desc, count],
 			 speckyboy.init.getBall());
 		});
 	}
@@ -228,6 +253,7 @@
 		}, 200);
 	}
 	speckyboy.init.getBall_for_work = function(){
+		$("#add_sel").html('');
 		var database = speckyboy.init.db;
 			database.transaction(function(tx){
 				tx.executeSql("SELECT * FROM balls ORDER BY desc ASC", [], function(tx,result){
@@ -235,8 +261,8 @@
 						todo_id = result.rows.item(i).id;
 						todo_desc = result.rows.item(i).desc;
 						todo_ball = result.rows.item(i).ball;
-						$(".form-control").append(
-								'<option>'+ todo_desc+'</option>');
+						$("#add_sel").append(
+								'<option data-id="'+todo_id+'" data-ball="'+todo_ball+'">'+ todo_desc+'</option>');
 
 					}
 				});
@@ -303,7 +329,26 @@
 		$("#desc").val('');
 		$("#ball").val('');
 	});
+	$("#add_ball_for_ls").click(function() {
+		$add_sel = $("#add_sel").find(':selected');
+		$add_sel_id 	= $add_sel.data('id');
+		$add_sel_ball 	= $add_sel.data('ball');
+		$add_sel_text 	= $add_sel.text();
+		
+		$("#scores_for_add").append(
+			'<tr data-id="'+$add_sel_id+'">'+
+				'<td>'+ $add_sel_text+'</td>'+
+				'<td>'+ $add_sel_ball+'</td>'+
+			'</tr>');
+			
+		change_add();
+		//lert($add_sel_text);
+	});
 
+	//$('#add_sel').change(function(){
+		//alert($(this).find(':selected').data('id'));
+	//});	
+	
 	$( ".add_work_close" ).click(function() {
 		$('#Modal_add_work').modal('hide');
 	});
@@ -313,17 +358,44 @@
 	});
 
 	$( "#add_save_work" ).click(function() {
-		date = $('#work_date').val();
-		desc = $('#work_desc').val();
-		ls = $('#work_ls').val();
 		
+		var work_desc_arr = [];
+		var work_desc_arr_all 	= [],
+			work_desc_arr 		= {},
+			count 				= 0;
+		$("#scores_for_add tbody tr").each(function () {
+			work_desc_arr.desc = $(this).find("td:nth-child(1)").text();
+			work_desc_arr.ball = $(this).find("td:nth-child(2)").text();
+			work_desc_arr_all.push(work_desc_arr);
+			count = count + parseFloat($(this).find("td:nth-child(2)").text());
+		});
+		date = $('#work_date').val();
+		desc = JSON.stringify(work_desc_arr_all);
+		ls = $('#work_ls').val();
 		//ball = $('#edit_ball').val();
 		
-		speckyboy.init.addWork(date, ls);
+		speckyboy.init.addWork(date, ls, desc, count);
 		$('#Modal_add_work').modal('hide');
 	});
 
 
+    function change_add() {
+	
+		var work_desc_arr_all 	= [],
+			work_desc_arr 		= {},
+			count 				= 0;
+		$("#scores_for_add tbody tr").each(function () {
+			work_desc_arr.desc = $(this).find("td:nth-child(1)").text();
+			work_desc_arr.ball = $(this).find("td:nth-child(2)").text();
+			work_desc_arr_all.push(work_desc_arr);
+			count = count + parseFloat($(this).find("td:nth-child(2)").text());
+		});
+		
+		$('#summ').html(count);
+		console.log(work_desc_arr_all); 
+		
+	
+	}
     function table() {
 		if(localStorage["ball"]){
 			item = JSON.parse(localStorage["ball"])
