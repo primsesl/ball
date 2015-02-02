@@ -115,7 +115,18 @@
         <h4 class="modal-title" id="editModalLabel">Редактирование вид работ</h4>
       </div>
       <div class="modal-body">
-			<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal_add">Дабавить</button>
+	  			<button type="button" id="buttonqqq" class="btn btn-default btn-xs">Развернуть форму</button>
+		<div id="div_add_ball">
+			<div class="form-group">
+				<label for="desc">Описание</label>
+				<input type="text" class="form-control" id="desc" placeholder="Описание">
+			</div>
+			<div class="form-group">
+				<label for="ball">Баллы</label>
+				<input type="number" class="form-control" id="ball" placeholder="Баллы">
+			</div>
+			<button type="button" id="add" class="btn btn-default navbar-btn" data-toggle="modal">Дабавить</button>
+		</div>
 			  <!-- Table -->
 			<table id="scores" class="table">
 				<thead>
@@ -136,14 +147,6 @@
 					<h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
 				  </div>
 				  <div class="modal-body">
-					<div class="form-group">
-					<label for="desc">Описание</label>
-					<input type="text" class="form-control" id="desc" placeholder="Описание">
-					</div>
-					<div class="form-group">
-					<label for="ball">Баллы</label>
-					<input type="number" class="form-control" id="ball" placeholder="Баллы">
-					</div>
 				  </div>
 				  <div class="modal-footer">
 					<button id="add" type="button" class="btn btn-primary">Сохранить</button>
@@ -257,13 +260,14 @@
 						todo_id = result.rows.item(il).id;
 						todo_date = result.rows.item(il).date;
 						todo_ls = result.rows.item(il).ls;
-						todo_desc = result.rows.item(il).desc;
+						//todo_desc = result.rows.item(il).desc;
+						todo_desc = show_desc(result.rows.item(il).desc);
 						todo_ball = result.rows.item(il).ball;
 						$table1.append(
 							'<tr id="row_'+todo_id+'" data-id="'+todo_id+'">'+
 								'<td id="td_desc_'+todo_id+'">'+ todo_date+'</td>'+
 								'<td>'+ todo_ls+'</td>'+
-								'<td>'+ todo_desc+' <span class="badge">4</span></td>'+
+								'<td>'+ todo_desc+'</td>'+
 								'<td>'+ todo_ball+'</td>'+
 								'<td>'+
 								'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
@@ -329,6 +333,12 @@
 
 	
 //Конец База данных
+
+    $("#buttonqqq").click(function() {
+      $( "#div_add_ball" ).toggle('blind', {}, 800 );
+    });
+$( "#div_add_ball" ).hide();
+
 	$('.navbar-collapse').click('li', function() {
 		$('.navbar-collapse').collapse('hide');
 		$('#Modal_ball').modal('show'); 
@@ -405,7 +415,21 @@
 		speckyboy.init.getWork();
 	});
 
-
+	function show_desc(desc){
+		var desc_arr = $.parseJSON(desc);
+		if(!desc_arr){
+			res = '';
+		}else{
+			res = '';
+			
+			for (var di=0; di < desc_arr.length; di++) {
+				res = res + desc_arr[di].desc+' <span class="badge">'+desc_arr[di].ball+'</span> ';
+				console.log(desc_arr[di].desc);
+			}
+		}
+	return res;
+		
+	}
     function change_add() {
 	
 		var work_desc_arr_all 	= [],
