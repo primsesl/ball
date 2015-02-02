@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<nav class="navbar  navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
@@ -26,7 +26,7 @@
 			<a class="navbar-brand" href="#">Учет баллов <span class="label label-success">210</span></a>
 		</div>
 	<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-3">
-		<ul class="nav">
+		<ul class="nav navbar-inverse">
 			<li><a href="#">Настройки</a></li>
 		</ul>
 	</div>
@@ -36,8 +36,7 @@
     <div class="page-header">
     </div>
     <div class="container theme-showcase" role="main">
-		<div>
-			<button id="add_work" type="button" class="btn btn-primary">Добавить</button>
+		<button id="add_work" type="button" class="btn btn-primary">Добавить</button>
 			<table id="work" class="table">
 				<thead>
 					<tr>
@@ -254,12 +253,12 @@
 			$table1.html('');
 			database.transaction(function(tx){
 				tx.executeSql("SELECT * FROM work ORDER BY date ASC", [], function(tx,result){
-					for (var i=0; i < result.rows.length; i++) {
-						todo_id = result.rows.item(i).id;
-						todo_date = result.rows.item(i).date;
-						todo_ls = result.rows.item(i).ls;
-						todo_desc = result.rows.item(i).desc;
-						todo_ball = result.rows.item(i).ball;
+					for (var il=0; il < result.rows.length; il++) {
+						todo_id = result.rows.item(il).id;
+						todo_date = result.rows.item(il).date;
+						todo_ls = result.rows.item(il).ls;
+						todo_desc = result.rows.item(il).desc;
+						todo_ball = result.rows.item(il).ball;
 						$table1.append(
 							'<tr id="row_'+todo_id+'" data-id="'+todo_id+'">'+
 								'<td id="td_desc_'+todo_id+'">'+ todo_date+'</td>'+
@@ -388,9 +387,9 @@
 		
 		var work_desc_arr = [];
 		var work_desc_arr_all 	= [],
-			work_desc_arr 		= {},
 			count 				= 0;
 		$("#scores_for_add tbody tr").each(function () {
+			work_desc_arr 		= {};
 			work_desc_arr.desc = $(this).find("td:nth-child(1)").text();
 			work_desc_arr.ball = $(this).find("td:nth-child(2)").text();
 			work_desc_arr_all.push(work_desc_arr);
@@ -403,6 +402,7 @@
 		
 		speckyboy.init.addWork(date, ls, desc, count);
 		$('#Modal_add_work').modal('hide');
+		speckyboy.init.getWork();
 	});
 
 
