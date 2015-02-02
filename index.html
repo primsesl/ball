@@ -23,7 +23,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Учет баллов <span class="label label-success">210</span></a>
+			<a class="navbar-brand" href="#">Учет баллов <span id="total_s" class="label label-success">210</span></a>
 		</div>
 	<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-3">
 		<ul class="nav navbar-inverse">
@@ -127,6 +127,18 @@
 			</div>
 			<button type="button" id="add" class="btn btn-default navbar-btn" data-toggle="modal">Дабавить</button>
 		</div>
+		<div id="div_edit_ball">
+			<div id="edit_id"></div>
+			<div class="form-group">
+				<label for="edit_desc">Описание</label>
+				<input type="text" class="form-control" id="edit_desc" placeholder="Описание">
+			</div>
+			<div class="form-group">
+				<label for="edit_ball">Баллы</label>
+				<input type="number" class="form-control" id="edit_ball" placeholder="Баллы">
+			</div>
+			<button id="edit_save_ball" type="button" class="btn btn-primary">Сохранить</button>
+		</div>
 			  <!-- Table -->
 			<table id="scores" class="table">
 				<thead>
@@ -174,7 +186,6 @@
 					</div>
 				  </div>
 				  <div class="modal-footer">
-					<button id="edit_save_ball" type="button" class="btn btn-primary">Сохранить</button>
 					<button type="button" class="edit_ball_close btn btn-default">Закрыть</button>
 				  </div>
 				</div>
@@ -238,39 +249,11 @@
 						todo_desc = result.rows.item(i).desc;
 						todo_ball = result.rows.item(i).ball;
 						$table.append(
-							'<tr id="row_'+todo_id+'" data-id="'+todo_id+'">'+
-								'<td id="td_desc_'+todo_id+'">'+ todo_desc+'</td>'+
-								'<td>'+ todo_ball+'</td>'+
+							'<tr id="row_ball_'+todo_id+'" data-id="'+todo_id+'">'+
+								'<td id="td_ball_desc_'+todo_id+'">'+ todo_desc+'</td>'+
+								'<td id="td_ball_ball_'+todo_id+'">'+ todo_ball+'</td>'+
 								'<td>'+
-								'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
-								'<button type="button" class="edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
-							'</tr>');
-
-					}
-				});
-			});
-	}
-	speckyboy.init.getWork = function(){
-		var database = speckyboy.init.db;
-			$table1 = $("#work tbody");
-			$table1.html('');
-			database.transaction(function(tx){
-				tx.executeSql("SELECT * FROM work ORDER BY date ASC", [], function(tx,result){
-					for (var il=0; il < result.rows.length; il++) {
-						todo_id = result.rows.item(il).id;
-						todo_date = result.rows.item(il).date;
-						todo_ls = result.rows.item(il).ls;
-						//todo_desc = result.rows.item(il).desc;
-						todo_desc = show_desc(result.rows.item(il).desc);
-						todo_ball = result.rows.item(il).ball;
-						$table1.append(
-							'<tr id="row_'+todo_id+'" data-id="'+todo_id+'">'+
-								'<td id="td_desc_'+todo_id+'">'+ todo_date+'</td>'+
-								'<td>'+ todo_ls+'</td>'+
-								'<td>'+ todo_desc+'</td>'+
-								'<td>'+ todo_ball+'</td>'+
-								'<td>'+
-								'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
+								'<button type="button" class="del_ball btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
 								'<button type="button" class="edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
 							'</tr>');
 
@@ -280,6 +263,40 @@
 		setTimeout(function(){
 			deleteClickOn();
 			editClickOn();
+		}, 200);
+	}
+	speckyboy.init.getWork = function(){
+		var database = speckyboy.init.db;
+			$table1 = $("#work tbody");
+			$table1.html('');
+			database.transaction(function(tx){
+				tx.executeSql("SELECT * FROM work ORDER BY date ASC", [], function(tx,result){
+					total_work = 0;
+					for (var il=0; il < result.rows.length; il++) {
+						todo_id = result.rows.item(il).id;
+						todo_date = result.rows.item(il).date;
+						todo_ls = result.rows.item(il).ls;
+						//todo_desc = result.rows.item(il).desc;
+						todo_desc = show_desc(result.rows.item(il).desc);
+						todo_ball = (result.rows.item(il).ball == null) ? 0 : result.rows.item(il).ball;
+						total_work = total_work + parseFloat(todo_ball);
+						$table1.append(
+							'<tr id="row_'+todo_id+'" data-id="'+todo_id+'">'+
+								'<td id="td_desc_'+todo_id+'">'+ todo_date+'</td>'+
+								'<td>'+ todo_ls+'</td>'+
+								'<td>'+ todo_desc+'</td>'+
+								'<td>'+ todo_ball+'</td>'+
+								'<td>'+
+								'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
+								'</td>'+
+							'</tr>');
+
+					}
+					$('#total_s').html(total_work.toFixed(2));
+				});
+			});
+		setTimeout(function(){
+			deleteClickWorkOn();
 		}, 200);
 	}
 	speckyboy.init.getBall_for_work = function(){
@@ -324,19 +341,26 @@
 			tx.executeSql('UPDATE balls SET desc = ?, ball = ? WHERE id = ?', [desc, ball, id]);
 		});
 	}
-	speckyboy.init.deleteRow = function(id){
+	speckyboy.init.deleteRow = function(id, table){
 		var database = speckyboy.init.db;
 		database.transaction(function(tx){
-			tx.executeSql("DELETE FROM balls WHERE id=?",[id]);
+			tx.executeSql("DELETE FROM "+table+" WHERE id=?",[id]);
 		});
 	}
 
 	
 //Конец База данных
-
+	  var state = true;
     $("#buttonqqq").click(function() {
-      $( "#div_add_ball" ).toggle('blind', {}, 800 );
+		$( "#div_add_ball" ).toggle('blind', {}, 500 );
+		if ( state ) {
+			$("#buttonqqq").html('Свернуть форму')
+		} else {
+			$("#buttonqqq").html('Развернуть форму')
+		}
+		state = !state;
     });
+$( "#div_edit_ball" ).hide();
 $( "#div_add_ball" ).hide();
 
 	$('.navbar-collapse').click('li', function() {
@@ -351,8 +375,10 @@ $( "#div_add_ball" ).hide();
 		desc = $('#edit_desc').val();
 		ball = $('#edit_ball').val();
 		speckyboy.init.editSaveBall(id, desc, ball);
-		$("#td_desc_"+id).html(desc);
-		$('#Modal_edit').modal('hide'); 
+		$("#td_ball_desc_"+id).html(desc);
+		$("#td_ball_ball_"+id).html(ball);
+		$("#div_edit_ball").toggle('blind', {}, 500 );
+		//$('#Modal_edit').modal('hide'); 
 	});
 	$(".edit_ball_close").click(function() {
 		$('#Modal_edit').modal('hide'); 
@@ -412,6 +438,10 @@ $( "#div_add_ball" ).hide();
 		
 		speckyboy.init.addWork(date, ls, desc, count);
 		$('#Modal_add_work').modal('hide');
+		$('#work_ls').val('');
+		$('#work_date').val('');
+		$('#summ').html('');
+		$("#scores_for_add tbody").html('');
 		speckyboy.init.getWork();
 	});
 
@@ -421,9 +451,12 @@ $( "#div_add_ball" ).hide();
 			res = '';
 		}else{
 			res = '';
-			
+			var zp = ', '
 			for (var di=0; di < desc_arr.length; di++) {
-				res = res + desc_arr[di].desc+' <span class="badge">'+desc_arr[di].ball+'</span> ';
+				if(di+1 === desc_arr.length){
+					zp = '';
+				}
+				res = res + ''+desc_arr[di].desc+' <span class="label label-success">'+desc_arr[di].ball+'</span>'+zp;
 				console.log(desc_arr[di].desc);
 			}
 		}
@@ -458,7 +491,7 @@ $( "#div_add_ball" ).hide();
 						'<td>'+ item[r].desc+'</td>'+
 						'<td>'+ item[r].ball+'</td>'+
 						'<td>'+
-						'<button type="button" class="del btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
+						'<button type="button" class="del_ball btn btn-default btn-xs"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>'+
 						'<button type="button" class="edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>'+
 					'</tr>');
 				console.log("index"+ r + " - "+ item[r].desc);
@@ -469,14 +502,25 @@ $( "#div_add_ball" ).hide();
 		}else{
 		}
     }
-    function deleteClickOn() {
+    function deleteClickWorkOn() {
 			$( ".del")
 				.click(function() {
             var $thisTr = $(this).parent().parent(),
                 timeID = $thisTr.data("id");
 				$tttt = $("#row_"+timeID);
 				//alert(timeID);
-            speckyboy.init.deleteRow(timeID) 
+            speckyboy.init.deleteRow(timeID, 'work') 
+			$tttt.fadeOut()
+        })
+    }
+    function deleteClickOn() {
+			$( ".del_ball")
+				.click(function() {
+            var $thisTr = $(this).parent().parent(),
+                timeID = $thisTr.data("id");
+				$tttt = $("#row_ball_"+timeID);
+				//alert(timeID);
+            speckyboy.init.deleteRow(timeID, 'ball') 
 			$tttt.fadeOut()
         })
     }
@@ -484,11 +528,22 @@ $( "#div_add_ball" ).hide();
 			$(".edit")
 				.click(function() {
 					var $thisTr = $(this).parent().parent(),
-						timeID = $thisTr.data("id");
+						timeID = $thisTr.data("id"),
+						oldid = parseFloat($('#edit_id').html());
 						//alert(timeID);
 						speckyboy.init.editRowBall(timeID);
-						$('#Modal_edit').modal('show');
-
+						if($( "#div_add_ball" ).attr('style') == 'display: block;'){
+							$( "#div_add_ball" ).toggle('blind', {}, 500 );
+						}
+						if (timeID == oldid){
+							$("#div_edit_ball").toggle('blind', {}, 500 );
+							
+						}else{
+							if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
+							}else{
+								$("#div_edit_ball").toggle('blind', {}, 500 );
+							}
+						}
         });
     }
     function deleteItem(timeID) {
