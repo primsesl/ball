@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<!--Навигация-->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -32,9 +33,14 @@
 	</div>
 	</div>
 	</nav>	
-    <!-- Main jumbotron for a primary marketing message or call to action -->
+<!--Конец Навигация-->
+
+<!--Вверх-->
     <div class="page-header">
     </div>
+<!--Конец Вверх-->
+
+<!--Контент-->
     <div class="container theme-showcase" role="main">
 		<button id="add_work" type="button" class="btn btn-primary">Добавить</button>
 			<table id="work" class="table">
@@ -107,6 +113,9 @@
 			</div>
 		</div>
 	</div>
+<!--Конец Контент-->
+
+<!--Настройки-->
 <div class="modal fade" id="Modal_ball" tabindex="-1" role="dialog" aria-labelledby="ballModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -197,14 +206,16 @@
       </div>
     </div>
   </div>
-</div>	
+</div>
+<!--Конец Настройки-->	
+
 	<script type="text/javascript">
 	$(function() {
 	
 //База данных
-	db_name = "events_cal";
-	db_version = "1.0";
-        var db_description = "подсчет баллов";
+	var db_name = "events_cal";
+	var db_version = "1.0";
+    var db_description = "подсчет баллов";
 		
 	//var spec = []
 	var speckyboy = {}
@@ -215,7 +226,6 @@
 		speckyboy.init.db = openDatabase(db_name,db_version,db_description,1024*1024*5);
 		// название БД, версия, описание, размер
 	}
-	// получение данных из БД
 	speckyboy.init.createTable = function(){
 		 var database = speckyboy.init.db;
 		 database.transaction(function(tx){
@@ -224,6 +234,7 @@
 		 });
 	}
 	
+	// получение данных из БД
 	speckyboy.init.addBall = function(desc,ball){
 		var database = speckyboy.init.db;
 		database.transaction(function(tx){
@@ -347,9 +358,11 @@
 			tx.executeSql("DELETE FROM "+table+" WHERE id=?",[id]);
 		});
 	}
-
-	
 //Конец База данных
+
+	$( "#div_edit_ball" ).hide();
+	$( "#div_add_ball" ).hide();
+
     $("#buttonqqq").click(function() {
 		if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
 			$( "#div_edit_ball" ).hide('blind', {}, 500, '' );
@@ -374,7 +387,7 @@
 							$( "#div_add_ball" ).hide('blind', {}, 500, '' );
 						}
 						if (timeID == oldid){
-							$("#div_edit_ball").show('blind', {}, 500, '' );
+							$("#div_edit_ball").hide('blind', {}, 500, '' );
 							
 						}else{
 							if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
@@ -386,8 +399,6 @@
         });
     }
 	
-$( "#div_edit_ball" ).hide();
-$( "#div_add_ball" ).hide();
 
 	$('.navbar-collapse').click('li', function() {
 		$('.navbar-collapse').collapse('hide');
@@ -432,11 +443,6 @@ $( "#div_add_ball" ).hide();
 		change_add();
 		//lert($add_sel_text);
 	});
-
-	//$('#add_sel').change(function(){
-		//alert($(this).find(':selected').data('id'));
-	//});	
-	
 	$( ".add_work_close" ).click(function() {
 		$('#Modal_add_work').modal('hide');
 	});
@@ -444,9 +450,7 @@ $( "#div_add_ball" ).hide();
 		speckyboy.init.getBall_for_work();
 		$('#Modal_add_work').modal('show');
 	});
-
 	$( "#add_save_work" ).click(function() {
-		
 		var work_desc_arr = [];
 		var work_desc_arr_all 	= [],
 			count 				= 0;
@@ -461,7 +465,6 @@ $( "#div_add_ball" ).hide();
 		desc = JSON.stringify(work_desc_arr_all);
 		ls = $('#work_ls').val();
 		//ball = $('#edit_ball').val();
-		
 		speckyboy.init.addWork(date, ls, desc, count);
 		$('#Modal_add_work').modal('hide');
 		$('#work_ls').val('');
@@ -470,7 +473,6 @@ $( "#div_add_ball" ).hide();
 		$("#scores_for_add tbody").html('');
 		speckyboy.init.getWork();
 	});
-
 	function show_desc(desc){
 		var desc_arr = $.parseJSON(desc);
 		if(!desc_arr){
@@ -487,10 +489,8 @@ $( "#div_add_ball" ).hide();
 			}
 		}
 	return res;
-		
 	}
     function change_add() {
-	
 		var work_desc_arr_all 	= [],
 			work_desc_arr 		= {},
 			count 				= 0;
@@ -536,6 +536,7 @@ $( "#div_add_ball" ).hide();
 				$tttt = $("#row_"+timeID);
 				//alert(timeID);
             speckyboy.init.deleteRow(timeID, 'work') 
+			speckyboy.init.getWork();
 			$tttt.fadeOut()
         })
     }
