@@ -50,12 +50,12 @@
 				<tbody>
 				</tbody>
 			</table>
-			<div class="modal fade" id="Modal_add_work" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="Modal_add_work" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 			  <div class="modal-dialog">
 				<div class="modal-content">
 				  <div class="modal-header">
 					<button type="button" class="close add_work_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
+					<h4 class="modal-title" id="myModalLabel1">Добавить вид работ</h4>
 				  </div>
 				  <div class="modal-body">
 					<div class="form-group col-xs-6">
@@ -112,7 +112,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="editModalLabel">Редактирование вид работ</h4>
+        <h4 class="modal-title" id="ballModalLabel">Редактирование вид работ</h4>
       </div>
       <div class="modal-body">
 	  			<button type="button" id="buttonqqq" class="btn btn-default btn-xs">Развернуть форму</button>
@@ -204,7 +204,7 @@
 //База данных
 	db_name = "events_cal";
 	db_version = "1.0";
-	db_description = "подсчет баллов";
+        var db_description = "подсчет баллов";
 		
 	//var spec = []
 	var speckyboy = {}
@@ -350,16 +350,42 @@
 
 	
 //Конец База данных
-	  var state = true;
     $("#buttonqqq").click(function() {
-		$( "#div_add_ball" ).toggle('blind', {}, 500 );
-		if ( state ) {
-			$("#buttonqqq").html('Свернуть форму')
-		} else {
-			$("#buttonqqq").html('Развернуть форму')
+		if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
+			$( "#div_edit_ball" ).hide('blind', {}, 500, '' );
 		}
-		state = !state;
+		if($( "#div_add_ball" ).attr('style') == 'display: block;'){
+			$( "#div_add_ball" ).hide('blind', {}, 500, '' );
+			$("#buttonqqq").html('Развернуть форму')
+		}else{
+			$("#buttonqqq").html('Свернуть форму')
+			$( "#div_add_ball" ).show('blind', {}, 500, '' );
+		}
     });
+    function editClickOn() {
+			$(".edit")
+				.click(function() {
+					var $thisTr = $(this).parent().parent(),
+						timeID = $thisTr.data("id"),
+						oldid = parseFloat($('#edit_id').html());
+						//alert(timeID);
+						speckyboy.init.editRowBall(timeID);
+						if($( "#div_add_ball" ).attr('style') == 'display: block;'){
+							$( "#div_add_ball" ).hide('blind', {}, 500, '' );
+						}
+						if (timeID == oldid){
+							$("#div_edit_ball").show('blind', {}, 500, '' );
+							
+						}else{
+							if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
+							}else{
+								$("#div_edit_ball").show('blind', {}, 500, '' );
+								//$("#div_edit_ball").toggle('blind', {}, 500 );
+							}
+						}
+        });
+    }
+	
 $( "#div_edit_ball" ).hide();
 $( "#div_add_ball" ).hide();
 
@@ -523,28 +549,6 @@ $( "#div_add_ball" ).hide();
             speckyboy.init.deleteRow(timeID, 'ball') 
 			$tttt.fadeOut()
         })
-    }
-    function editClickOn() {
-			$(".edit")
-				.click(function() {
-					var $thisTr = $(this).parent().parent(),
-						timeID = $thisTr.data("id"),
-						oldid = parseFloat($('#edit_id').html());
-						//alert(timeID);
-						speckyboy.init.editRowBall(timeID);
-						if($( "#div_add_ball" ).attr('style') == 'display: block;'){
-							$( "#div_add_ball" ).toggle('blind', {}, 500 );
-						}
-						if (timeID == oldid){
-							$("#div_edit_ball").toggle('blind', {}, 500 );
-							
-						}else{
-							if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
-							}else{
-								$("#div_edit_ball").toggle('blind', {}, 500 );
-							}
-						}
-        });
     }
     function deleteItem(timeID) {
         var clbObj = $.parseJSON(localStorage.ball),
