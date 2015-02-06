@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Баллы 1.1</title>
+<title>Баллы</title>
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="js/jquery.ui.datepicker-ru.min.js"></script>
@@ -24,7 +24,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Учет баллов 1.1 <span id="total_s" class="label label-success">210</span></a>
+			<a class="navbar-brand" href="#">Учет баллов <span id="total_s" class="label label-success">210</span></a>
 		</div>
 	<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-3">
 		<ul class="nav navbar-inverse">
@@ -364,10 +364,10 @@
 	$( "#div_add_ball" ).hide();
 
     $("#buttonqqq").click(function() {
-		if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
+		if($( "#div_edit_ball" ).css('display') == 'block'){
 			$( "#div_edit_ball" ).hide('blind', {}, 500, '' );
 		}
-		if($( "#div_add_ball" ).attr('style') == 'display: block;'){
+		if($( "#div_add_ball" ).css('display') == 'block'){
 			$( "#div_add_ball" ).hide('blind', {}, 500, '' );
 			$("#buttonqqq").html('Развернуть форму')
 		}else{
@@ -383,14 +383,19 @@
 						oldid = parseFloat($('#edit_id').html());
 						//alert(timeID);
 						speckyboy.init.editRowBall(timeID);
-						if($( "#div_add_ball" ).attr('style') == 'display: block;'){
+						if($( "#div_add_ball" ).css('display') == 'block'){
 							$( "#div_add_ball" ).hide('blind', {}, 500, '' );
 						}
 						if (timeID == oldid){
-							$("#div_edit_ball").hide('blind', {}, 500, '' );
+							if($( "#div_edit_ball" ).css('display') == 'block'){
+								$("#div_edit_ball").hide('blind', {}, 500, '' );
+							}else{
+								$("#div_edit_ball").show('blind', {}, 500, '' );
+								//$("#div_edit_ball").toggle('blind', {}, 500 );
+							}
 							
 						}else{
-							if($( "#div_edit_ball" ).attr('style') == 'display: block;'){
+							if($( "#div_edit_ball" ).css('display') == 'block'){
 							}else{
 								$("#div_edit_ball").show('blind', {}, 500, '' );
 								//$("#div_edit_ball").toggle('blind', {}, 500 );
@@ -547,7 +552,7 @@
                 timeID = $thisTr.data("id");
 				$tttt = $("#row_ball_"+timeID);
 				//alert(timeID);
-            speckyboy.init.deleteRow(timeID, 'ball') 
+            speckyboy.init.deleteRow(timeID, 'balls') 
 			$tttt.fadeOut()
         })
     }
