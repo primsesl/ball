@@ -24,7 +24,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">v 1.5 Учет баллов</a>
+			<a class="navbar-brand" href="#">Учет баллов v 1.5</a>
 			<p id="total_s" class="navbar-text"></p>
 		</div>
    <div class="collapse navbar-collapse" id="example-navbar-collapse">
@@ -107,7 +107,7 @@
 					</div>
 				  <div class="modal-footer">
 					<button id="add_save_work" type="button" class="btn btn-primary">Сохранить</button>
-					<button id="" type="button" class="btn btn-default add_work_close">Закрыть</button>
+					<button type="button" class="btn btn-default add_work_close">Закрыть</button>
 				  </div>
 				</div>
 			  </div>
@@ -118,97 +118,57 @@
 
 <!--Настройки-->
 <div class="modal fade" id="Modal_ball" tabindex="-1" role="dialog" aria-labelledby="ballModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="ballModalLabel">Редактирование вид работ</h4>
-      </div>
-      <div class="modal-body">
-  			<button type="button" id="buttonqqq" class="btn btn-default">
-				<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-			</button>
-		<div id="div_add_ball">
-			<div class="form-group">
-				<label for="desc">Описание</label>
-				<input type="text" class="form-control" id="desc" placeholder="Описание">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close edit_ball_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="ballModalLabel">Редактирование вид работ</h4>
 			</div>
-			<div class="form-group">
-				<label for="ball">Баллы</label>
-				<input type="number" class="form-control" id="ball" placeholder="Баллы">
-			</div>
-			<button type="button" id="add" class="btn btn-default navbar-btn" data-toggle="modal">Дабавить</button>
-		</div>
-		<div id="div_edit_ball">
-			<div id="edit_id"></div>
-			<div class="form-group">
-				<label for="edit_desc">Описание</label>
-				<input type="text" class="form-control" id="edit_desc" placeholder="Описание">
-			</div>
-			<div class="form-group">
-				<label for="edit_ball">Баллы</label>
-				<input type="number" class="form-control" id="edit_ball" placeholder="Баллы">
-			</div>
-			<button id="edit_save_ball" type="button" class="btn btn-primary">Сохранить</button>
-		</div>
-			  <!-- Table -->
-			<table id="scores" class="table">
-				<thead>
-					<tr>
-						<th>Описание</th>
-						<th width="30px">Баллы</th>
-						<th width="50px">Кнопки</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close add_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Добавить вид работ</h4>
-				  </div>
-				  <div class="modal-body">
-				  </div>
-				  <div class="modal-footer">
-					<button id="add" type="button" class="btn btn-primary">Сохранить</button>
-					<button id="" type="button" class="btn btn-default add_close">Закрыть</button>
-				  </div>
-				</div>
-			  </div>
-			</div>
-			<div class="modal fade" id="Modal_edit" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close edit_ball_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="editModalLabel">Редактирование вид работ</h4>
-				  </div>
-				  <div class="modal-body">
-				  <div id="edit_id"></div>
+			<div class="modal-body">
+				<button type="button" id="buttonqqq" class="btn btn-default">
+					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+				</button>
+				<div id="div_add_ball">
 					<div class="form-group">
-					<label for="edit_desc">Описание</label>
-					<input type="text" class="form-control" id="edit_desc" placeholder="Описание">
+						<label for="desc">Описание</label>
+						<input type="text" class="form-control" id="desc" placeholder="Описание">
 					</div>
 					<div class="form-group">
-					<label for="edit_ball">Баллы</label>
-					<input type="number" class="form-control" id="edit_ball" placeholder="Баллы">
+						<label for="ball">Баллы</label>
+						<input type="number" class="form-control" id="ball" placeholder="Баллы">
 					</div>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="edit_ball_close btn btn-default">Закрыть</button>
-				  </div>
+					<button type="button" id="add" class="btn btn-default navbar-btn" data-toggle="modal">Дабавить</button>
 				</div>
-			  </div>
-			</div>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-      </div>
-    </div>
-  </div>
+				<div id="div_edit_ball">
+					<div id="edit_id"></div>
+					<div class="form-group">
+						<label for="edit_desc">Описание</label>
+						<input type="text" class="form-control" id="edit_desc" placeholder="Описание">
+					</div>
+					<div class="form-group">
+						<label for="edit_ball">Баллы</label>
+						<input type="number" class="form-control" id="edit_ball" placeholder="Баллы">
+					</div>
+					<button id="edit_save_ball" type="button" class="btn btn-primary">Сохранить</button>
+				</div>
+				<!-- Table -->
+				<table id="scores" class="table">
+					<thead>
+						<tr>
+							<th>Описание</th>
+							<th width="30px">Баллы</th>
+							<th width="50px">Кнопки</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="edit_ball_close btn btn-default" data-dismiss="modal">Закрыть</button>
+			</div>
+		</div>
+	</div>
 </div>
 <!--Конец Настройки-->	
 
@@ -424,6 +384,9 @@
 		$("#div_edit_ball").toggle('blind', {}, 500 );
 	});
 	$(".edit_ball_close").click(function() {
+		$("#div_add_ball").hide('blind', {}, 500, '' );
+		$("#div_edit_ball").hide('blind', {}, 500, '' );
+		$("#buttonqqq span").addClass("glyphicon-chevron-down").removeClass("glyphicon-chevron-up");
 		$('#Modal_edit').modal('hide'); 
 	});
 	$("#add").click(function() {
@@ -449,6 +412,7 @@
 		change_add();
 	});
 	$( ".add_work_close" ).click(function() {
+	
 		$('#Modal_add_work').modal('hide');
 	});
 	$( "#add_work" ).click(function() {
