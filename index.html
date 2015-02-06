@@ -215,12 +215,12 @@
 	<script type="text/javascript">
 	$(function() {
 
-document.getElementById('tfa_src_data').onclick = function() {                  
+	$('#tfa_src_data').onclick = function() {                  
                         var csv = 'asfasfasfasff';
                         var csvData = 'data:application/csv;charset=utf-8,' 
                                        + encodeURIComponent(csv);
                         this.href = csvData;
-                        this.target = '_blank';
+                        //this.target = '_blank';
                         this.download = 'filename.txt';
                     };		
 	
